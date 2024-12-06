@@ -1,3 +1,4 @@
+import 'package:biztrail/view/homescreen/productdetail.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,6 +8,7 @@ import '../../common/textconstants.dart';
 import '../widgets/catlist.dart';
 import '../../controller/app_controller.dart';
 import '../../controller/cartcontroller.dart';
+
 
 class HomeScreen extends StatelessWidget {
   final String companyName;
@@ -58,34 +60,44 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
-
         actions: [
           IconButton(
+
               onPressed: () {
-                // Wallet action
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => SuperCoinStatement()),
+                // );
               },
               icon: Badge(
-                backgroundColor: Darktheme1,
+                backgroundColor:  Darktheme1,
+
                 child: Icon(Icons.account_balance_wallet_outlined,
-                    color: Darktheme1),
-              )),
+                    color: Darktheme1),)
+          ),
           IconButton(
               onPressed: () {
-                // Notifications action
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => NotificationsPage()),
+                // );
               },
               icon: Badge(
-                backgroundColor: Darktheme1,
+                backgroundColor:  Darktheme1,
                 child: Icon(Icons.notifications_none_outlined,
-                    color: Darktheme1),
-              )),
+                    color: Darktheme1),)
+          ),
         ],
+
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(15),
           child: Column(
+
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const SizedBox(height: 20),
               CarouselSlider.builder(
                 itemCount: banners.length,
                 itemBuilder: (context, index, _) {
@@ -109,32 +121,31 @@ class HomeScreen extends StatelessWidget {
                   enlargeCenterPage: true,
                 ),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 20,),
+
               Text(
-                "Top Categories",
-                style: NeededTextstyles.style2,
+                  "Top Categories",
+                  style: NeededTextstyles.style2
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 20,),
               // Categories Section
               Cataglist(controller: controller),
-              SizedBox(height: 20),
+
+              SizedBox(height: 20,),
               Text(
                 "Best Selling",
                 style: NeededTextstyles.style2,
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 20,),
+
               // All Products Section
               Obx(() {
                 if (controller.isLoadingProducts.value) {
                   return Center(child: CircularProgressIndicator());
                 }
                 if (controller.products.isEmpty) {
-                  return Center(
-                    child: Text(
-                      'No products available.',
-                      style: NeededTextstyles.style2,
-                    ),
-                  );
+                  return Center(child: Text('No products available.',
+                    style: NeededTextstyles.style2,));
                 }
                 return GridView.builder(
                   shrinkWrap: true,
@@ -148,77 +159,89 @@ class HomeScreen extends StatelessWidget {
                   ),
                   itemBuilder: (context, index) {
                     final product = controller.products[index];
-                    return Card(
-                      color: white,
-                      elevation: 5,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          // Product Image
-                          product.image != null
-                              ? Expanded(
-                            child: Image.network(
-                              product.image!,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) =>
-                                  Icon(Icons.image_not_supported),
+                    return GestureDetector(
+                      onTap: () {
+                        // Use GetX for navigation
+                        Get.to(() => ProductDetail(product: product));
+                      },
+                      child: Card(
+
+                        color: white,
+                        elevation: 5,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            // Product Image
+                            product.image != null
+                                ? Expanded(
+                              child: Image.network(
+                                product.image!,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    Icon(Icons.image_not_supported),
+                              ),
+                            )
+                                : Expanded(
+                              child: Icon(Icons.image, size: 50),
                             ),
-                          )
-                              : Expanded(
-                            child: Icon(Icons.image, size: 50),
-                          ),
-                          // Product Name and Price with Add Icon
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                // Product Name
-                                Expanded(
-                                  child: Text(
-                                    product.productName ?? 'Unnamed Product',
-                                    style: NeededTextstyles.style03,
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                                // Add Icon Button
-                                Container(
-                                  height: 25,
-                                  width: 25,
-                                  decoration: BoxDecoration(
-                                    color: maintheme1,
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  child: IconButton(
-                                    padding: EdgeInsets.zero,
-                                    icon: Icon(
-                                      Icons.add,
-                                      size: 20,
-                                      color: Color(0xff333333),
+                            // Product Name and Price with Add Icon
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  // Product Name
+                                  Expanded(
+                                    child: Text(
+                                      product.productName ?? 'Unnamed Product',
+                                      style: NeededTextstyles.style03,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
-                                    onPressed: () {
-                                      cartController.addToCart(product);
-                                    },
                                   ),
-                                ),
-                              ],
+                                  // Add Icon Button
+                                  Container(
+                                    height: 25,
+                                    width: 25,
+                                    decoration: BoxDecoration(
+                                      color: maintheme1,
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    child: IconButton(
+                                      padding: EdgeInsets.zero,
+                                      icon: Icon(
+                                        Icons.add,
+                                        size: 20,
+                                        color: Color(0xff333333),
+                                      ),
+                                      onPressed: () {
+                                        cartController.addToCart(product);
+                                        // Navigator.push(
+                                        //   context,
+                                        //   MaterialPageRoute(builder: (context) => CartPage()),
+                                        // );
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          // Product Price
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Text(
-                              'Price: ${product.price ?? 'N/A'}',
-                              style: NeededTextstyles.style04,
+                            // Product Price
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: Text(
+                                'Price: ${product.price ?? 'N/A'}',
+                                style: NeededTextstyles.style04,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    );
+                    )
+                    ;
                   },
                 );
               }),

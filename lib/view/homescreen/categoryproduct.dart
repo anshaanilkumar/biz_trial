@@ -22,52 +22,53 @@ class CategoryProductPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('${category.name} Products'),
+        title: Text('${category.name} Products',
+          style: NeededTextstyles.commonhead,),
       ),
       body: categoryProducts.isEmpty
           ? Center(child: Text('No products available for this category.'))
           : ListView.builder(
-              itemCount: categoryProducts.length,
-              itemBuilder: (context, index) {
-                final product = categoryProducts[index];
-                return Padding(
-                  padding: const  EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-                  child: Card(
-                    color: white,
-                    elevation: 5,
-                    child: ListTile(
-                      onTap: () {
-                        // Use GetX for navigation
-                        Get.to(() => ProductDetail(product: product));
-                      },
-                      leading: Image.network(
-                        product.image!,
-                        width: 70,
-                        height: 80,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
-                          return Icon(Icons.broken_image, size: 50, color: Colors.grey);
-                        },
-                      ),
-                      title: Text(
-                        product.productName!,
-                          style: NeededTextstyles.style21
-                      ),
-                      subtitle: Text(
-                        product.productDetails!,
-                        style: NeededTextstyles.style24,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      trailing: Text(
-                        '\$${product.price?.toStringAsFixed(2)}',
-                          style: NeededTextstyles.style21,
-                      ),
-                    ),
-                  ),
-                );
-              },
+        itemCount: categoryProducts.length,
+        itemBuilder: (context, index) {
+          final product = categoryProducts[index];
+          return Padding(
+            padding: const  EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+            child: Card(
+              color: white,
+              elevation: 5,
+              child: ListTile(
+                onTap: () {
+                  // Use GetX for navigation
+                  Get.to(() => ProductDetail(product: product));
+                },
+                leading: Image.network(
+                  product.image!,
+                  width: 70,
+                  height: 80,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Icon(Icons.broken_image, size: 50, color: Colors.grey);
+                  },
+                ),
+                title: Text(
+                    product.productName!,
+                    style: NeededTextstyles.style21
+                ),
+                subtitle: Text(
+                  product.productDetails!,
+                  style: NeededTextstyles.style24,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                trailing: Text(
+                  '\$${product.price?.toStringAsFixed(2)}',
+                  style: NeededTextstyles.style21,
+                ),
+              ),
             ),
+          );
+        },
+      ),
     );
   }
 }

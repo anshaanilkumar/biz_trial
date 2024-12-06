@@ -6,7 +6,7 @@ import 'app_colors.dart';
 
 class NeededTextstyles {
 
-          //   white
+  //   white
 
   static TextStyle style20= TextStyle(
     fontFamily: 'Poppins',
@@ -63,7 +63,7 @@ class NeededTextstyles {
     color: white,
   );
 
-        //   black
+  //   black
 
   static TextStyle style02 = TextStyle(
     fontFamily: 'Poppins',
@@ -141,6 +141,12 @@ class NeededTextstyles {
     fontWeight: FontWeight.w400,
     color: Colors.black,
   );
+  static TextStyle stykishblac= TextStyle(
+    fontFamily: 'Poppins',
+    fontSize: 20,
+    fontWeight: FontWeight.w500,
+    color: Colors.black,
+  );
   static TextStyle style18= TextStyle(
     fontFamily: 'Poppins',
     fontSize: 25,
@@ -154,7 +160,7 @@ class NeededTextstyles {
     color: black,
   );
 
-        //   grey
+  //   grey
 
   static TextStyle style23= TextStyle(
     fontFamily: 'Poppins',
@@ -188,7 +194,7 @@ class NeededTextstyles {
     color: grey,
   );
 
-        // darktheme1
+  // darktheme1
 
   static TextStyle style04 = TextStyle(
     fontFamily: 'Poppins',
@@ -203,7 +209,7 @@ class NeededTextstyles {
     color: Darktheme1,
   );
 
-          // red
+  // red
 
   static TextStyle style7 = TextStyle(
     fontFamily: 'Poppins',
@@ -223,7 +229,7 @@ class NeededTextstyles {
     fontWeight: FontWeight.w600,
     color: red,
   );
-          // bluish
+  // bluish
 
   static TextStyle style14= TextStyle(
     fontFamily: 'Poppins',
@@ -232,7 +238,7 @@ class NeededTextstyles {
     color: kyc,
   );
 
-        //   maintheme
+  //   maintheme
 
   static TextStyle style17= TextStyle(
     fontFamily: 'Poppins',
@@ -240,13 +246,18 @@ class NeededTextstyles {
     fontWeight: FontWeight.w400,
     color: maintheme1,
   );
-
-
-          // others
-  static TextStyle commonhead= TextStyle(
+  static TextStyle green= TextStyle(
     fontFamily: 'Poppins',
-    fontWeight: FontWeight.w500,
-    color:black
+    fontSize: 18,
+    fontWeight: FontWeight.w400,
+    color: Darktheme1,
+  );
+
+  // others
+  static TextStyle commonhead= TextStyle(
+      fontFamily: 'Poppins',
+      fontWeight: FontWeight.w500,
+      color:black
   );
 
 

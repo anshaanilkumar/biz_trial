@@ -1,5 +1,6 @@
 //
 
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -52,13 +53,13 @@ class Cataglist extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         vertical: 10, horizontal: 15),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         // Category Name
                         Text(
                           category.name ?? 'Unnamed Category',
-                          style: NeededTextstyles.style1,
+                          style: NeededTextstyles.style03,
                           textAlign: TextAlign.center,
                         ),
                       ],
