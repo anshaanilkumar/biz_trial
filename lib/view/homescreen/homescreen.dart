@@ -8,14 +8,16 @@ import '../widgets/catlist.dart';
 import '../../controller/app_controller.dart';
 import '../../controller/cartcontroller.dart';
 
-
 class HomeScreen extends StatelessWidget {
+  final String companyName;
   final List<String> banners = [
     "assets/img_5.png",
     "assets/img_5.png",
   ];
   final AppController controller = Get.put(AppController());
   final CartController cartController = Get.put(CartController());
+
+  HomeScreen({required this.companyName});
 
   @override
   Widget build(BuildContext context) {
@@ -35,35 +37,48 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
         ),
-        title: Text("data"),
-          actions: [
-            IconButton(
-
-                onPressed: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => SuperCoinStatement()),
-                  // );
-                },
-                icon: Badge(
-                  backgroundColor:  Darktheme1,
-
-                  child: Icon(Icons.account_balance_wallet_outlined,
-                      color: Darktheme1),)
+        title: Column(
+          children: [
+            Text(
+              "Welcome", // Static welcome text
+              style: TextStyle(
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+                color: Colors.black,
+              ),
             ),
-            IconButton(
-                onPressed: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => NotificationsPage()),
-                  // );
-                },
-                icon: Badge(
-                  backgroundColor:  Darktheme1,
-                  child: Icon(Icons.notifications_none_outlined,
-                      color: Darktheme1),)
+            Text(
+              companyName, // Dynamic shop name
+              style: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 14,
+                color: Colors.grey[600],
+              ),
             ),
-          ]
+          ],
+        ),
+
+        actions: [
+          IconButton(
+              onPressed: () {
+                // Wallet action
+              },
+              icon: Badge(
+                backgroundColor: Darktheme1,
+                child: Icon(Icons.account_balance_wallet_outlined,
+                    color: Darktheme1),
+              )),
+          IconButton(
+              onPressed: () {
+                // Notifications action
+              },
+              icon: Badge(
+                backgroundColor: Darktheme1,
+                child: Icon(Icons.notifications_none_outlined,
+                    color: Darktheme1),
+              )),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -94,31 +109,32 @@ class HomeScreen extends StatelessWidget {
                   enlargeCenterPage: true,
                 ),
               ),
-              SizedBox(height: 20,),
-
-          Text(
-              "Top Categories",
-              style: NeededTextstyles.style2
-          ),
-              SizedBox(height: 20,),
+              SizedBox(height: 20),
+              Text(
+                "Top Categories",
+                style: NeededTextstyles.style2,
+              ),
+              SizedBox(height: 20),
               // Categories Section
               Cataglist(controller: controller),
-
-              SizedBox(height: 20,),
+              SizedBox(height: 20),
               Text(
                 "Best Selling",
                 style: NeededTextstyles.style2,
               ),
-              SizedBox(height: 20,),
-
+              SizedBox(height: 20),
               // All Products Section
               Obx(() {
                 if (controller.isLoadingProducts.value) {
                   return Center(child: CircularProgressIndicator());
                 }
                 if (controller.products.isEmpty) {
-                  return Center(child: Text('No products available.',
-                  style: NeededTextstyles.style2,));
+                  return Center(
+                    child: Text(
+                      'No products available.',
+                      style: NeededTextstyles.style2,
+                    ),
+                  );
                 }
                 return GridView.builder(
                   shrinkWrap: true,
@@ -186,10 +202,6 @@ class HomeScreen extends StatelessWidget {
                                     ),
                                     onPressed: () {
                                       cartController.addToCart(product);
-                                      // Navigator.push(
-                                      //   context,
-                                      //   MaterialPageRoute(builder: (context) => CartPage()),
-                                      // );
                                     },
                                   ),
                                 ),
@@ -206,8 +218,7 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                    )
-                    ;
+                    );
                   },
                 );
               }),

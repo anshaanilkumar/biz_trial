@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'kyc.dart';
 
+import 'kyc.dart';
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -60,7 +60,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 50, left: 10),
+                  padding: const EdgeInsets.only(top: 50, left: 10),
                   child: Text(
                     'Join us to start searching',
                     style: TextStyle(
@@ -70,7 +70,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 15),
+                SizedBox(height: 15),
                 Padding(
                   padding: const EdgeInsets.only(left: 15),
                   child: Text(
@@ -88,21 +88,20 @@ class _SignUpPageState extends State<SignUpPage> {
                     style: TextStyle(
                       fontFamily: 'Poppins',
                       fontSize: 12,
-
                     ),
                   ),
                 ),
                 SizedBox(height: 50),
                 _buildTextField(
                   controller: _companyNameController,
-                  hint: 'Shopname',
+                  hint: 'Shop Name',
                   icon: Icons.maps_home_work_sharp,
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return 'Shopname cannot be empty';
+                      return 'Shop Name cannot be empty';
                     }
                     if (value.contains("@")) {
-                      return 'Invalid shopname';
+                      return 'Invalid Shop Name';
                     }
                     return null;
                   },
@@ -110,11 +109,11 @@ class _SignUpPageState extends State<SignUpPage> {
                 SizedBox(height: 5),
                 _buildTextField(
                   controller: _contactPersonController,
-                  hint: 'Ownername',
+                  hint: 'Owner Name',
                   icon: Icons.person,
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return 'Ownername cannot be empty';
+                      return 'Owner Name cannot be empty';
                     }
                     if (!RegExp(r'^[a-zA-Z\s]+$').hasMatch(value)) {
                       return 'Name must contain only letters';
@@ -185,13 +184,10 @@ class _SignUpPageState extends State<SignUpPage> {
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     border: Border.all(
-                                      color:
-                                      isChecked ?  Color(0xff6EBC31) :  Color(0xff6EBC31),
+                                      color: isChecked ? Color(0xff6EBC31) : Colors.grey,
                                       width: 2,
                                     ),
-                                    color: isChecked
-                                        ?  Color(0xff6EBC31)
-                                        : Colors.transparent,
+                                    color: isChecked ? Color(0xff6EBC31) : Colors.transparent,
                                   ),
                                   child: isChecked
                                       ? Icon(
@@ -237,10 +233,10 @@ class _SignUpPageState extends State<SignUpPage> {
                   child: Text(
                     "Sign up",
                     style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white
+                      fontFamily: 'Poppins',
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
@@ -273,9 +269,9 @@ class _SignUpPageState extends State<SignUpPage> {
         decoration: InputDecoration(
           hintText: hint,
           hintStyle: TextStyle(
-              fontFamily: 'Poppins',
-              fontSize: 15,
-              color: Colors.grey
+            fontFamily: 'Poppins',
+            fontSize: 15,
+            color: Colors.grey,
           ),
           prefixIcon: Icon(icon),
           border: OutlineInputBorder(

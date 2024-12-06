@@ -8,7 +8,9 @@ import 'cartscreen.dart';
 import 'homescreen.dart';
 
 class FirstScreen extends StatefulWidget {
-  const FirstScreen({super.key});
+  final String companyName;
+   FirstScreen({super.key,
+     required this.companyName});
   @override
   State<FirstScreen> createState() => _FirstScreenState();
 }
@@ -31,7 +33,7 @@ class _FirstScreenState extends State<FirstScreen> {
   void initState() {
     super.initState();
     pages = [
-      HomeScreen(),
+      HomeScreen(companyName: widget.companyName),
       SearchScreen(),
       CartScreen(),
       // Profile(),

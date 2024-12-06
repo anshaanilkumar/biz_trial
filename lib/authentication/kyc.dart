@@ -1,9 +1,12 @@
 import 'dart:io';
+import 'package:biztrail/view/homescreen/homescreen.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import '../view/homescreen/firstscreen.dart';
+
+
 
 class SecondPage extends StatefulWidget {
   final String companyName;
@@ -31,7 +34,7 @@ class _SecondPageState extends State<SecondPage> {
   String? gstCertificate;
   bool _isLoading = false;
 
-  // Method to pick files (Ownership or GST)
+  // Method to pick files
   Future<void> pickFile(String certificateType) async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
@@ -49,7 +52,7 @@ class _SecondPageState extends State<SecondPage> {
     }
   }
 
-  // Method to submit form and upload files to backend
+  // Method to submit form and upload files
   Future<void> _submitForm() async {
     if (!isAgreed || (ownershipCertificate == null && gstCertificate == null)) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -83,7 +86,9 @@ class _SecondPageState extends State<SecondPage> {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Sign Up Successful!')));
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => FirstScreen()),
+          MaterialPageRoute(
+            builder: (context) => FirstScreen(companyName: widget.companyName),
+          ),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -101,7 +106,7 @@ class _SecondPageState extends State<SecondPage> {
     }
   }
 
-  // Method to skip the file upload and still perform sign-up
+  // Method to skip the file upload
   Future<void> _skipForm() async {
     setState(() {
       _isLoading = true;
@@ -121,7 +126,9 @@ class _SecondPageState extends State<SecondPage> {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Sign Up Successful!')));
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => FirstScreen()),
+          MaterialPageRoute(
+            builder: (context) => FirstScreen(companyName: widget.companyName),
+          ),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -148,7 +155,7 @@ class _SecondPageState extends State<SecondPage> {
         elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {},
+          onPressed: () => Navigator.pop(context),
         ),
         title: Text(
           "KYC Verification",
@@ -178,10 +185,7 @@ class _SecondPageState extends State<SecondPage> {
               SizedBox(height: 10),
               Row(
                 children: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.info_outline, size: 20, color: Color(0xff677294)),
-                  ),
+                  Icon(Icons.info_outline, size: 20, color: Color(0xff677294)),
                   SizedBox(width: 8),
                   Text(
                     "Why this is needed?",
@@ -194,55 +198,9 @@ class _SecondPageState extends State<SecondPage> {
                 ],
               ),
               SizedBox(height: 50),
-              GestureDetector(
-                onTap: () => pickFile("ownership"),
-                child: Container(
-                  height: 100,
-                  padding: EdgeInsets.symmetric(vertical: 16),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[300],
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Center(
-                    child: Text(
-                      ownershipCertificate != null
-                          ? "Ownership Certificate Uploaded"
-                          : "Upload Ownership Certificate",
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontSize: 14,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              _buildUploadButton("ownership", "Ownership Certificate"),
               SizedBox(height: 30),
-              GestureDetector(
-                onTap: () => pickFile("gst"),
-                child: Container(
-                  height: 100,
-                  padding: EdgeInsets.symmetric(vertical: 16),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[300],
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Center(
-                    child: Text(
-                      gstCertificate != null
-                          ? "GST Certificate Uploaded"
-                          : "Upload GST Certificate",
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontSize: 14,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              _buildUploadButton("gst", "GST Certificate"),
               SizedBox(height: 50),
               Row(
                 children: [
@@ -271,53 +229,13 @@ class _SecondPageState extends State<SecondPage> {
               Center(
                 child: Column(
                   children: [
-                    Container(
-                      height: 40,
-                      width: 200,
-                      child: ElevatedButton(
-                        onPressed: _skipForm, // Skip and sign up
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xff6EBC31).withOpacity(0.50),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        child: Text(
-                          "Skip",
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xff005511),
-                          ),
-                        ),
-                      ),
-                    ),
+                    _buildButton("Skip", _skipForm, Color(0xff6EBC31).withOpacity(0.50), Color(0xff005511)),
                     SizedBox(height: 15),
-                    Container(
-                      height: 40,
-                      width: 200,
-                      child: ElevatedButton(
-                        onPressed: isAgreed && (ownershipCertificate != null || gstCertificate != null)
-                            ? _submitForm
-                            : null, // Disable if conditions are not met
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xff6EBC31),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        child: _isLoading
-                            ? CircularProgressIndicator(color: Colors.white)
-                            : Text(
-                          "Verify",
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
+                    _buildButton(
+                      "Verify",
+                      isAgreed && (ownershipCertificate != null || gstCertificate != null) ? _submitForm : null,
+                      Color(0xff6EBC31),
+                      Colors.white,
                     ),
                   ],
                 ),
@@ -328,6 +246,57 @@ class _SecondPageState extends State<SecondPage> {
       ),
     );
   }
+
+  Widget _buildUploadButton(String type, String label) {
+    String? file = type == "ownership" ? ownershipCertificate : gstCertificate;
+    return GestureDetector(
+      onTap: () => pickFile(type),
+      child: Container(
+        height: 100,
+        padding: EdgeInsets.symmetric(vertical: 16),
+        decoration: BoxDecoration(
+          color: Colors.grey[300],
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Center(
+          child: Text(
+            file != null ? "$label Uploaded" : "Upload $label",
+            style: TextStyle(
+              fontFamily: 'Poppins',
+              fontSize: 14,
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildButton(String label, VoidCallback? onPressed, Color backgroundColor, Color textColor) {
+    return Container(
+      height: 40,
+      width: 200,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: backgroundColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+        child: _isLoading && label == "Verify"
+            ? CircularProgressIndicator(color: textColor)
+            : Text(
+          label,
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: textColor,
+          ),
+        ),
+      ),
+    );
+  }
 }
-
-
