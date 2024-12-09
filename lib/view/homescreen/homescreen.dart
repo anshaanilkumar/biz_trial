@@ -1,14 +1,14 @@
+
 import 'package:biztrail/view/homescreen/productdetail.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../common/app_colors.dart';
-import '../../common/textconstants.dart';
-import '../../controller/usercontroller.dart';
+import '../../../common/app_colors.dart';
+import '../../../common/textconstants.dart';
+import '../../../controller/app_controller.dart';
+import '../../../controller/cartcontroller.dart';
 import '../widgets/catlist.dart';
-import '../../controller/app_controller.dart';
-import '../../controller/cartcontroller.dart';
 
 
 class HomeScreen extends StatelessWidget {
@@ -19,7 +19,6 @@ class HomeScreen extends StatelessWidget {
   ];
   final AppController controller = Get.put(AppController());
   final CartController cartController = Get.put(CartController());
-  final UserController userController = Get.find<UserController>();
 
   HomeScreen({required this.companyName});
 
@@ -28,38 +27,34 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: white,
       appBar: AppBar(
+        bottom: PreferredSize(
+            child: Container(
+              color: black,
+              height:0.1,
+            ),
+            preferredSize: Size.fromHeight(6.0)),
+        elevation: 1,
+        surfaceTintColor: Colors.transparent,
         backgroundColor: white,
         leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: GestureDetector(
-            onTap: () {
-              // Navigate to profile page
-            },
+            padding: const EdgeInsets.all(8.0),
             child: CircleAvatar(
-              backgroundColor: Colors.black,
-              radius: 25,
-            ),
-          ),
+                backgroundColor: lighttheme84,
+                child: Icon(Icons.maps_home_work_outlined,color: black,))
         ),
         title: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Welcome", // Static welcome text
-              style: TextStyle(
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-                color: Colors.black,
-              ),
+                "Hi  $companyName", // Dynamic shop name
+                style: NeededTextstyles.homeapp
             ),
             Text(
-              companyName, // Dynamic shop name
-              style: TextStyle(
-                fontFamily: 'Poppins',
-                fontSize: 14,
-                color: Colors.grey[600],
-              ),
+              "Welcome!!!", // Static welcome text
+              style: NeededTextstyles.welcome,
             ),
+
           ],
         ),
         actions: [
@@ -254,3 +249,27 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+
+
+//
+// title: Column(
+// children: [
+// Text(
+// "Welcome", // Static welcome text
+// style: TextStyle(
+// fontFamily: 'Poppins',
+// fontWeight: FontWeight.bold,
+// fontSize: 18,
+// color: Colors.black,
+// ),
+// ),
+// Text(
+// companyName, // Dynamic shop name
+// style: TextStyle(
+// fontFamily: 'Poppins',
+// fontSize: 14,
+// color: Colors.grey[600],
+// ),
+// ),
+// ],
+// ),

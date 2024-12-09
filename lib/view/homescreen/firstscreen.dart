@@ -1,26 +1,33 @@
 
-
-
+import 'package:biztrail/view/homescreen/profileee.dart';
 import 'package:biztrail/view/homescreen/searchscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../common/app_colors.dart';
+import '../../../common/app_colors.dart';
+import '../../../model/usermodel.dart';
 import 'cartscreen.dart';
 import 'homescreen.dart';
 
 class FirstScreen extends StatefulWidget {
   final String companyName;
-   FirstScreen({super.key,
-     required this.companyName});
+
+  final BusinessUser? businessUser; // Added businessUser field
+
+  FirstScreen({
+    super.key,
+    required this.companyName,
+
+    this.businessUser, // Initialized businessUser
+  });
+
   @override
   State<FirstScreen> createState() => _FirstScreenState();
 }
 
 class _FirstScreenState extends State<FirstScreen> {
   int currentIndex = 0;
-
   List<Widget> pages = [];
 
   Future<void> _openWhatsApp() async {
@@ -35,11 +42,15 @@ class _FirstScreenState extends State<FirstScreen> {
   @override
   void initState() {
     super.initState();
+    // Pass businessUser to Profile
     pages = [
       HomeScreen(companyName: widget.companyName),
       SearchScreen(companyName: widget.companyName),
       CartScreen(),
-      // Profile(),
+      Profile(
+        companyName: widget.companyName,
+
+      ),
     ];
   }
 
@@ -94,8 +105,7 @@ class _FirstScreenState extends State<FirstScreen> {
           ],
         ),
       ),
-      floatingActionButton: (currentIndex == 0 || currentIndex == 1 ||
-          currentIndex == 3)
+      floatingActionButton: (currentIndex == 0 || currentIndex == 1 || currentIndex == 3)
           ? FloatingActionButton(
         elevation: 0,
         onPressed: _openWhatsApp,

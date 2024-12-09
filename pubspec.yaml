@@ -50,6 +50,9 @@ dependencies:
   uuid: ^4.5.1
   provider: ^6.1.2
   intl: ^0.20.1
+  flutter_ringtone_player: ^4.0.0+3
+  dio: ^5.7.0
+  shared_preferences: ^2.3.3
 
 
 
@@ -97,6 +100,22 @@ flutter:
       fonts:
         - asset: assets/fonts/Poppins-Regular.ttf
         - asset: assets/fonts/Poppins-Bold.ttf
+        - asset: assets/fonts/Poppins-Black.ttf
+        - asset: assets/fonts/Poppins-BlackItalic.ttf
+        - asset: assets/fonts/Poppins-BoldItalic.ttf
+        - asset: assets/fonts/Poppins-ExtraBold.ttf
+        - asset: assets/fonts/Poppins-ExtraBoldItalic.ttf
+        - asset: assets/fonts/Poppins-ExtraLight.ttf
+        - asset: assets/fonts/Poppins-ExtraLightItalic.ttf
+        - asset: assets/fonts/Poppins-Italic.ttf
+        - asset: assets/fonts/Poppins-Light.ttf
+        - asset: assets/fonts/Poppins-LightItalic.ttf
+        - asset: assets/fonts/Poppins-Medium.ttf
+        - asset: assets/fonts/Poppins-MediumItalic.ttf
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+        - asset: assets/fonts/Poppins-SemiBoldItalic.ttf
+        - asset: assets/fonts/Poppins-Thin.ttf
+        - asset: assets/fonts/Poppins-ThinItalic.ttf
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:

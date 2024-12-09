@@ -20,12 +20,19 @@ class NeededTextstyles {
     fontWeight: FontWeight.w500,
     color: white,
   );
+  static TextStyle style66 = TextStyle(
+    fontFamily: 'Poppins',
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+    color: white,
+  );
   static TextStyle style13= TextStyle(
     fontFamily: 'Poppins',
     fontSize: 14,
     fontWeight: FontWeight.w500,
     color: white,
   );
+
   static TextStyle style12 = TextStyle(
     fontFamily: 'Poppins',
     fontSize: 14,
@@ -44,6 +51,18 @@ class NeededTextstyles {
     fontWeight: FontWeight.w700,
     color: white,
   );
+  static TextStyle style57 = TextStyle(
+    fontFamily: 'Poppins',
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+    color: white,
+  );
+  static TextStyle style70 = TextStyle(
+    fontFamily: 'Poppins',
+    fontSize: 16,
+    fontWeight: FontWeight.w700,
+    color: Colors.white70,
+  );
   static TextStyle white18 = TextStyle(
     fontFamily: 'Poppins',
     fontSize: 18,
@@ -56,20 +75,20 @@ class NeededTextstyles {
     fontWeight: FontWeight.w600,
     color: white,
   );
+  static TextStyle bold = TextStyle(
+    fontFamily: 'Poppins',
+    fontSize: 22,
+    fontWeight: FontWeight.bold,
+    color: white,
+  );
   static TextStyle white40 = TextStyle(
     fontFamily: 'Poppins',
     fontSize: 40,
     fontWeight: FontWeight.w700,
     color: white,
   );
-  static TextStyle style25 = TextStyle(
-    fontFamily: 'Poppins',
-    fontWeight: FontWeight.w400,
-    color: white,
-  );
 
   //   black
-
 
   static TextStyle style02 = TextStyle(
     fontFamily: 'Poppins',
@@ -95,6 +114,12 @@ class NeededTextstyles {
     fontWeight: FontWeight.w400,
     color: Colors.black,
   );
+  static TextStyle style121 = TextStyle(
+    fontFamily: 'Poppins',
+    fontSize: 13,
+    fontWeight: FontWeight.w500,
+    color: black,
+  );
   static TextStyle style11 = TextStyle(
     fontFamily: 'Poppins',
     fontSize: 13,
@@ -114,6 +139,12 @@ class NeededTextstyles {
     fontWeight: FontWeight.w500,
     color: Colors.black,
   );
+  static TextStyle style54= TextStyle(
+    fontFamily: 'Poppins',
+    fontSize: 14,
+    fontWeight: FontWeight.bold,
+    color: Colors.black,
+  );
 
   static TextStyle style3 = TextStyle(
     fontFamily: 'Poppins',
@@ -127,13 +158,30 @@ class NeededTextstyles {
     fontWeight: FontWeight.w400,
     color: Colors.black,
   );
-
+  static TextStyle style50 = TextStyle(
+    fontFamily: 'Poppins',
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    color: black,
+  );
 
   static TextStyle style6 = TextStyle(
     fontFamily: 'Poppins',
     fontSize: 16,
     fontWeight: FontWeight.w600,
     color: black,
+  );
+  static TextStyle style40= TextStyle(
+    fontFamily: 'Poppins',
+    fontSize: 18,
+    fontWeight: FontWeight.w500,
+    color: Colors.black,
+  );
+  static TextStyle style55= TextStyle(
+    fontFamily: 'Poppins',
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+    color: Colors.black,
   );
   static TextStyle style4= TextStyle(
     fontFamily: 'Poppins',
@@ -153,6 +201,12 @@ class NeededTextstyles {
     fontWeight: FontWeight.w500,
     color: Colors.black,
   );
+  static TextStyle stykshblac= TextStyle(
+    fontFamily: 'Poppins',
+    fontSize: 25,
+    fontWeight: FontWeight.bold,
+    color: Colors.black,
+  );
   static TextStyle style18= TextStyle(
     fontFamily: 'Poppins',
     fontSize: 25,
@@ -165,7 +219,12 @@ class NeededTextstyles {
     fontWeight: FontWeight.w500,
     color: black,
   );
-
+ // kyc
+  static TextStyle style56=TextStyle(
+  fontFamily: 'Poppins',
+  fontSize: 14,
+  color: kyc,
+  );
   //   grey
 
   static TextStyle style23= TextStyle(
@@ -179,6 +238,12 @@ class NeededTextstyles {
     fontFamily: 'Poppins',
     fontSize: 12,
     fontWeight: FontWeight.w400,
+    color: grey,
+  );
+  static TextStyle style25= TextStyle(
+    fontFamily: 'Poppins',
+    fontSize: 14,
+    // fontWeight: FontWeight.w400,
     color: grey,
   );
   static TextStyle style19= TextStyle(
@@ -208,15 +273,32 @@ class NeededTextstyles {
     fontWeight: FontWeight.w500,
     color: Darktheme1,
   );
+  static TextStyle co = TextStyle(
+    fontFamily: 'Poppins',
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    color: Darktheme1,
+  );
   static TextStyle style15= TextStyle(
     fontFamily: 'Poppins',
     fontSize: 16,
     fontWeight: FontWeight.w600,
     color: Darktheme1,
   );
+  static TextStyle green= TextStyle(
+    fontFamily: 'Poppins',
+    fontSize: 18,
+    fontWeight: FontWeight.w400,
+    color: Darktheme1,
+  );
 
   // red
-
+  static TextStyle error = TextStyle(
+    fontFamily: 'Poppins',
+    fontSize: 12.0,
+    fontWeight: FontWeight.w400,
+    color: red,
+  );
   static TextStyle style7 = TextStyle(
     fontFamily: 'Poppins',
     fontSize: 14.0,
@@ -252,11 +334,24 @@ class NeededTextstyles {
     fontWeight: FontWeight.w400,
     color: maintheme1,
   );
-  static TextStyle green= TextStyle(
+  static TextStyle style35= TextStyle(
     fontFamily: 'Poppins',
     fontSize: 18,
-    fontWeight: FontWeight.w400,
-    color: Darktheme1,
+    fontWeight: FontWeight.w500,
+    color: maintheme1,
+  );
+  static TextStyle style36= TextStyle(
+    fontFamily: 'Poppins',
+    fontWeight: FontWeight.w600,
+    color: maintheme1,
+  );
+
+
+  static TextStyle lighttheme= TextStyle(
+    fontFamily: 'Poppins',
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
+    color: lighttheme84,
   );
 
   // others
@@ -266,9 +361,28 @@ class NeededTextstyles {
       color:black
   );
 
+  //kaushanScript
 
+  static TextStyle homeapp= TextStyle(
+      fontFamily: 'KaushanScript',
+      fontWeight: FontWeight.w500,
+      fontSize: 20,
+      color: maintheme1
+  );
 
+  static TextStyle signhead= TextStyle(
+      fontFamily: 'KaushanScript',
+      fontWeight: FontWeight.w800,
+      fontSize: 30,
+      color: black
+  );
+  //paprika
+  static TextStyle welcome= TextStyle(
+    fontFamily: 'Paprika',
+    //fontWeight: FontWeight.w400,
+    fontSize: 12,
 
+  );
 
 
 }

@@ -4,6 +4,7 @@ import '../../common/app_colors.dart';
 import '../../common/textconstants.dart';
 import '../../controller/cartcontroller.dart';
 import '../../controller/razorctrlr.dart';
+import '../../payment/success.dart';
 import '../address.dart';
 import '../widgets/cartcontainer.dart';
 
@@ -172,14 +173,18 @@ class CartScreen extends StatelessWidget {
                                   width: 244,
                                   child: ElevatedButton(
                                     onPressed: () {
-
-                                      razorpayController.openCheckout(
-                                        amount: (cartController.finalPrice).toInt(), // Amount in paise
-                                        shopName: 'BixHinge',
-                                        description: 'Checkout Payment for Cart Items',
-                                        contact: razorpayController.contact.value, // Accessing contact value
-                                        email: razorpayController.email.value, // Accessing email value
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => FadeInAndSlide()),
                                       );
+
+                                      // razorpayController.openCheckout(
+                                      //   amount: (cartController.finalPrice).toInt(), // Amount in paise
+                                      //   shopName: 'BixHinge',
+                                      //   description: 'Checkout Payment for Cart Items',
+                                      //   contact: razorpayController.contact.value, // Accessing contact value
+                                      //   email: razorpayController.email.value, // Accessing email value
+                                      // );
                                       // if (cartController.address.value.isEmpty) {
                                       //   Get.snackbar("Error", "Please add an address before checkout.");
                                       // } else {
@@ -249,3 +254,12 @@ class CartScreen extends StatelessWidget {
     );
   }
 }
+
+
+
+// pages = [
+// HomeScreen(companyName: widget.companyName),
+// SearchScreen(companyName: widget.companyName),
+// CartScreen(),
+// // Profile(),
+// ];

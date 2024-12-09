@@ -261,7 +261,7 @@
 //               Center(
 //                 child: Column(
 //                   children: [
-//                     _buildButton("Skip", _skipForm, Color(0xff6EBC31).withOpacity(0.50), Color(0xff005511)),
+//                     _buildButton("Skip", _skipForm, Color(0xff6EBC31).withOpaci                                                              ty(0.50), Color(0xff005511)),
 //                     SizedBox(height: 15),
 //                     _buildButton(
 //                       "Verify",
@@ -357,94 +357,143 @@
 //   }
 // }
 
+//
+// import 'dart:io';
+// import 'package:biztrail/authentication/signup.dart';
+// import 'package:biztrail/view/homescreen/firstscreen.dart';
+// import 'package:flutter/material.dart';
+// import 'package:get/get.dart';
+// import 'package:image_picker/image_picker.dart';
+// import 'package:http/http.dart' as http;
+//
+// class SecondPageController extends GetxController {
+//   File? uploadedFile;
+//   final isLoading = false.obs;
+//
+//   void pickFile() async {
+//     final picker = ImagePicker();
+//     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+//     if (pickedFile != null) {
+//       uploadedFile = File(pickedFile.path);
+//       update(); // Ensure dependent widgets are updated.
+//     }
+//   }
+//
+//   Future<void> submitForm() async {
+//     isLoading.value = true;
+//
+//     try {
+//       final url = Uri.parse('https://apib2b-production.up.railway.app/api/business_users/');
+//       final request = http.MultipartRequest('POST', url)
+//         ..fields['company_name'] = Get.find<SignUpController>().companyName.value
+//         ..fields['contact_person'] = Get.find<SignUpController>().contactPerson.value
+//         ..fields['email'] = Get.find<SignUpController>().email.value
+//         ..fields['phone'] = Get.find<SignUpController>().phone.value
+//         ..fields['address'] = Get.find<SignUpController>().address.value;
+//
+//       if (uploadedFile != null) {
+//         request.files.add(await http.MultipartFile.fromPath('uploaded_file', uploadedFile!.path));
+//       }
+//
+//       final response = await request.send();
+//       if (response.statusCode == 201) {
+//         Get.snackbar("Success", "Sign up successful!");
+//         Get.offAll(() => FirstScreen(companyName: Get.find<SignUpController>().companyName.value )); // Navigate to home or dashboard
+//       } else {
+//         Get.snackbar("Error", "Failed to sign up: ${response.statusCode}");
+//       }
+//     } catch (e) {
+//       Get.snackbar("Error", "An error occurred: $e");
+//     } finally {
+//       isLoading.value = false;
+//     }
+//   }
+// }
+//
+// class SecondPage extends StatelessWidget {
+//   final controller = Get.put(SecondPageController());
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//             backgroundColor: Colors.white,
+//       appBar: AppBar(
+//         backgroundColor: Colors.white,
+//         elevation: 0,
+//         leading: IconButton(
+//           icon: Icon(Icons.arrow_back, color: Colors.black),
+//           onPressed: () => Navigator.pop(context),
+//         ),
+//         title: Text(
+//           "KYC Verification",
+//           style: TextStyle(
+//             fontFamily: 'Poppins',
+//             fontWeight: FontWeight.bold,
+//             fontSize: 18,
+//             color: Colors.black,
+//           ),
+//         ),
+//         centerTitle: true,
+//       ),
+//       body: SingleChildScrollView(
+//         child: Padding(
+//           padding: const EdgeInsets.all(16.0),
+//           child: Column(
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               Text(
+//                  "For completion of registration,\nplease upload ANY ONE of the following\ndocument",
+//                 style: TextStyle(
+//                   fontFamily: 'Poppins',
+//                   fontSize: 16,
+//                   color: Colors.black,
+//                 ),
+//               ),
+//               SizedBox(height: 10),
+//               Row(
+//                 children: [
+//                   Icon(Icons.info_outline, size: 20, color: Color(0xff677294)),
+//                   SizedBox(width: 8),
+//                   Text(
+//                     "Why this is needed?",
+//                     style: TextStyle(
+//                       fontFamily: 'Poppins',
+//                       fontSize: 14,
+//                       color: Color(0xff677294),
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//               SizedBox(height: 16),
+//               GetBuilder<SecondPageController>(
+//                 builder: (controller) => controller.uploadedFile != null
+//                     ? Image.file(controller.uploadedFile!, width: 200, height: 200)
+//                     : Text("No file selected"),
+//               ),
+//               SizedBox(height: 16),
+//               ElevatedButton(
+//                 onPressed: controller.pickFile,
+//                 child: Text("Pick File"),
+//               ),
+//               SizedBox(height: 32),
+//               Obx(
+//                     () => controller.isLoading.value
+//                     ? CircularProgressIndicator()
+//                     : ElevatedButton(
+//                   onPressed: controller.submitForm,
+//                   child: Text("Submit"),
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
-import 'dart:io';
-import 'package:biztrail/authentication/signup.dart';
-import 'package:biztrail/view/homescreen/firstscreen.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:http/http.dart' as http;
 
-class SecondPageController extends GetxController {
-  File? uploadedFile;
-  final isLoading = false.obs;
 
-  void pickFile() async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      uploadedFile = File(pickedFile.path);
-      update(); // Ensure dependent widgets are updated.
-    }
-  }
 
-  Future<void> submitForm() async {
-    isLoading.value = true;
 
-    try {
-      final url = Uri.parse('https://apib2b-production.up.railway.app/api/business_users/');
-      final request = http.MultipartRequest('POST', url)
-        ..fields['company_name'] = Get.find<SignUpController>().companyName.value
-        ..fields['contact_person'] = Get.find<SignUpController>().contactPerson.value
-        ..fields['email'] = Get.find<SignUpController>().email.value
-        ..fields['phone'] = Get.find<SignUpController>().phone.value
-        ..fields['address'] = Get.find<SignUpController>().address.value;
 
-      if (uploadedFile != null) {
-        request.files.add(await http.MultipartFile.fromPath('uploaded_file', uploadedFile!.path));
-      }
-
-      final response = await request.send();
-      if (response.statusCode == 201) {
-        Get.snackbar("Success", "Sign up successful!");
-        Get.offAll(() => FirstScreen(companyName: Get.find<SignUpController>().companyName.value )); // Navigate to home or dashboard
-      } else {
-        Get.snackbar("Error", "Failed to sign up: ${response.statusCode}");
-      }
-    } catch (e) {
-      Get.snackbar("Error", "An error occurred: $e");
-    } finally {
-      isLoading.value = false;
-    }
-  }
-}
-
-class SecondPage extends StatelessWidget {
-  final controller = Get.put(SecondPageController());
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Sign Up - Step 2")),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Text("Upload a File", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            SizedBox(height: 16),
-            GetBuilder<SecondPageController>(
-              builder: (controller) => controller.uploadedFile != null
-                  ? Image.file(controller.uploadedFile!, width: 200, height: 200)
-                  : Text("No file selected"),
-            ),
-            SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: controller.pickFile,
-              child: Text("Pick File"),
-            ),
-            SizedBox(height: 32),
-            Obx(
-                  () => controller.isLoading.value
-                  ? CircularProgressIndicator()
-                  : ElevatedButton(
-                onPressed: controller.submitForm,
-                child: Text("Submit"),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}

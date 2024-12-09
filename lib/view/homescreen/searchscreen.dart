@@ -1,18 +1,17 @@
+import 'package:biztrail/view/homescreen/productdetail.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../common/app_colors.dart';
-import '../../controller/app_controller.dart';
-import '../../controller/srchcontrlr.dart';
+import '../../../common/app_colors.dart';
+import '../../../controller/app_controller.dart';
+import '../../../controller/srchcontrlr.dart';
 import '../widgets/catlist.dart';
-import 'firstscreen.dart';
-import 'productdetail.dart';
+
 
 class SearchScreen extends StatelessWidget {
   final String companyName;
   final AppController appController = Get.find();
   final SrchController searchController = Get.find();
-
   SearchScreen({required this.companyName});
 
   @override
@@ -25,9 +24,7 @@ class SearchScreen extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Get.to(
-              FirstScreen(companyName: companyName)
-            );
+            Get.back();
           },
         ),
       ),

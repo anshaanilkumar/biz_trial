@@ -1,4 +1,3 @@
-//
 
 
 import 'package:flutter/material.dart';
@@ -57,6 +56,8 @@ class Cataglist extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         // Category Name
+                        Container(height: 40,width: 40,
+                          decoration: BoxDecoration(image: DecorationImage(image: NetworkImage(category.image?? ''))),),
                         Text(
                           category.name ?? 'Unnamed Category',
                           style: NeededTextstyles.style03,

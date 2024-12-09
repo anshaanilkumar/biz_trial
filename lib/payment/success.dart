@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'confirm_sucess.dart';
+import 'confirmsuccess.dart';
 
 class FadeInAndSlide extends StatefulWidget {
   const FadeInAndSlide({super.key});
