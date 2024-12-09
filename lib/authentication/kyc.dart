@@ -6,8 +6,6 @@ import 'package:http/http.dart' as http;
 
 import '../view/homescreen/firstscreen.dart';
 
-
-
 class SecondPage extends StatefulWidget {
   final String companyName;
   final String contactPerson;
@@ -30,12 +28,11 @@ class SecondPage extends StatefulWidget {
 
 class _SecondPageState extends State<SecondPage> {
   bool isAgreed = false;
-  String? ownershipCertificate;
-  String? gstCertificate;
+  String? uploadedFile; // This will hold the path of the uploaded file
   bool _isLoading = false;
 
   // Method to pick files
-  Future<void> pickFile(String certificateType) async {
+  Future<void> pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['pdf', 'jpg', 'png', 'jpeg'],
@@ -43,18 +40,17 @@ class _SecondPageState extends State<SecondPage> {
 
     if (result != null) {
       setState(() {
-        if (certificateType == "ownership") {
-          ownershipCertificate = result.files.single.path;
-        } else if (certificateType == "gst") {
-          gstCertificate = result.files.single.path;
-        }
+        uploadedFile = result.files.single.path;
       });
+
+      // Log the selected file path for debugging
+      print('Selected File Path: $uploadedFile');
     }
   }
 
   // Method to submit form and upload files
   Future<void> _submitForm() async {
-    if (!isAgreed || (ownershipCertificate == null && gstCertificate == null)) {
+    if (!isAgreed || uploadedFile == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Please agree to the terms and upload a certificate.")),
       );
@@ -65,7 +61,7 @@ class _SecondPageState extends State<SecondPage> {
       _isLoading = true;
     });
 
-    final url = Uri.parse('https://apib2b-production.up.railway.app/api/business_users/');
+    final url = Uri.parse('http://192.168.1.6:8000/api/business_users/');
     final request = http.MultipartRequest('POST', url)
       ..fields['company_name'] = widget.companyName
       ..fields['contact_person'] = widget.contactPerson
@@ -73,15 +69,19 @@ class _SecondPageState extends State<SecondPage> {
       ..fields['phone'] = widget.phone
       ..fields['address'] = widget.address;
 
-    if (ownershipCertificate != null) {
-      request.files.add(await http.MultipartFile.fromPath('ownership_certificate', ownershipCertificate!));
-    }
-    if (gstCertificate != null) {
-      request.files.add(await http.MultipartFile.fromPath('gst_certificate', gstCertificate!));
+    // Attach the uploaded file
+    if (uploadedFile != null) {
+      print("Uploading file path: $uploadedFile");
+      request.files.add(await http.MultipartFile.fromPath('uploaded_file', uploadedFile!));
     }
 
     try {
       final response = await request.send();
+      final responseBody = await response.stream.bytesToString();
+
+      // Debugging: Log the response
+      print("Response: ${response.statusCode} - $responseBody");
+
       if (response.statusCode == 201) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Sign Up Successful!')));
         Navigator.pushReplacement(
@@ -96,6 +96,7 @@ class _SecondPageState extends State<SecondPage> {
         );
       }
     } catch (e) {
+      print("Error occurred: $e");
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('An error occurred: $e')),
       );
@@ -106,44 +107,12 @@ class _SecondPageState extends State<SecondPage> {
     }
   }
 
-  // Method to skip the file upload
+  // Skip form method (Option 1)
   Future<void> _skipForm() async {
-    setState(() {
-      _isLoading = true;
-    });
-
-    final url = Uri.parse('https://apib2b-production.up.railway.app/api/business_users/');
-    final request = http.MultipartRequest('POST', url)
-      ..fields['company_name'] = widget.companyName
-      ..fields['contact_person'] = widget.contactPerson
-      ..fields['email'] = widget.email
-      ..fields['phone'] = widget.phone
-      ..fields['address'] = widget.address;
-
-    try {
-      final response = await request.send();
-      if (response.statusCode == 201) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Sign Up Successful!')));
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => FirstScreen(companyName: widget.companyName),
-          ),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to sign up. Status code: ${response.statusCode}')),
-        );
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('An error occurred: $e')),
-      );
-    } finally {
-      setState(() {
-        _isLoading = false;
-      });
-    }
+    // You can implement the logic for skipping the form submission
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Form skipped")),
+    );
   }
 
   @override
@@ -198,9 +167,9 @@ class _SecondPageState extends State<SecondPage> {
                 ],
               ),
               SizedBox(height: 50),
-              _buildUploadButton("ownership", "Ownership Certificate"),
-              SizedBox(height: 30),
-              _buildUploadButton("gst", "GST Certificate"),
+              _buildUploadButton(),
+              SizedBox(height: 10,),
+              _GstUploadButton(),
               SizedBox(height: 50),
               Row(
                 children: [
@@ -233,7 +202,7 @@ class _SecondPageState extends State<SecondPage> {
                     SizedBox(height: 15),
                     _buildButton(
                       "Verify",
-                      isAgreed && (ownershipCertificate != null || gstCertificate != null) ? _submitForm : null,
+                      isAgreed && uploadedFile != null ? _submitForm : null,
                       Color(0xff6EBC31),
                       Colors.white,
                     ),
@@ -247,10 +216,9 @@ class _SecondPageState extends State<SecondPage> {
     );
   }
 
-  Widget _buildUploadButton(String type, String label) {
-    String? file = type == "ownership" ? ownershipCertificate : gstCertificate;
+  Widget _buildUploadButton() {
     return GestureDetector(
-      onTap: () => pickFile(type),
+      onTap: pickFile,
       child: Container(
         height: 100,
         padding: EdgeInsets.symmetric(vertical: 16),
@@ -260,7 +228,32 @@ class _SecondPageState extends State<SecondPage> {
         ),
         child: Center(
           child: Text(
-            file != null ? "$label Uploaded" : "Upload $label",
+            uploadedFile != null ? "File Uploaded" : "Ownership Certificate",
+            style: TextStyle(
+              fontFamily: 'Poppins',
+              fontSize: 14,
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _GstUploadButton() {
+    return GestureDetector(
+      onTap: pickFile,
+      child: Container(
+        height: 100,
+        padding: EdgeInsets.symmetric(vertical: 16),
+        decoration: BoxDecoration(
+          color: Colors.grey[300],
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Center(
+          child: Text(
+            uploadedFile != null ? "File Uploaded" : "GST Certificate",
             style: TextStyle(
               fontFamily: 'Poppins',
               fontSize: 14,

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import 'authentication/login.dart';
 import 'authentication/signup.dart';
+import 'controller/usercontroller.dart';
 import 'view/homescreen/firstscreen.dart';
 import 'controller/cartcontroller.dart';
 import 'controller/srchcontrlr.dart';
@@ -13,6 +14,7 @@ void main() {
   // Lazy initialization of controllers
   Get.lazyPut<SrchController>(() => SrchController());
   Get.lazyPut<CartController>(() => CartController());
+  Get.put(UserController());
 
   runApp(const MyApp());
 }

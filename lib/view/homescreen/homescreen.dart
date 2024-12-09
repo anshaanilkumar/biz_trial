@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import '../../common/app_colors.dart';
 import '../../common/textconstants.dart';
+import '../../controller/usercontroller.dart';
 import '../widgets/catlist.dart';
 import '../../controller/app_controller.dart';
 import '../../controller/cartcontroller.dart';
@@ -18,6 +19,7 @@ class HomeScreen extends StatelessWidget {
   ];
   final AppController controller = Get.put(AppController());
   final CartController cartController = Get.put(CartController());
+  final UserController userController = Get.find<UserController>();
 
   HomeScreen({required this.companyName});
 

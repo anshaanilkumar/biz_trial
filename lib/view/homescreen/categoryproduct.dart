@@ -20,8 +20,8 @@ class CategoryProductPage extends StatelessWidget {
         .where((product) => product.category == category.id)
         .toList();
 
-    return Scaffold(
-      appBar: AppBar(
+    return Scaffold(backgroundColor: white,
+      appBar: AppBar(backgroundColor: white,
         title: Text('${category.name} Products',
           style: NeededTextstyles.commonhead,),
       ),

@@ -66,14 +66,14 @@ class CartScreen extends StatelessWidget {
                   const Divider(),
 
                   ListTile(
-                    title: Text(cartController.userAddress.value.isEmpty
+                    title: Text(cartController.address.value.isEmpty
                         ? "No address provided"
-                        : cartController.userAddress.value),
+                        : cartController.address.value),
                     trailing: TextButton(
-                        child: Text(cartController.userAddress.value.isEmpty ? "Add" : "Change"),
+                        child: Text(cartController.address.value.isEmpty ? "Add" : "Change"),
                         onPressed: () {
                           Get.to(() =>
-                              ChangeAddress()
+                              ChangeAddressPage(currentAddress: '',)
                           );
                         }
                     ),
@@ -176,7 +176,7 @@ class CartScreen extends StatelessWidget {
 
                                   child: ElevatedButton(
                                     onPressed: () {
-                                      if (cartController.userAddress.value.isEmpty) {
+                                      if (cartController.address.value.isEmpty) {
                                         Get.snackbar("Error", "Please add an address before checkout.");
                                       } else {
                                         cartController.checkout(); // Perform checkout

@@ -4,6 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'kyc.dart';
 
 class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
+
   @override
   _SignUpPageState createState() => _SignUpPageState();
 }
@@ -248,6 +250,40 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
                 SizedBox(height: 50),
+                // Padding(
+                //   padding: const EdgeInsets.only(left: 85),
+                //   child: Row(
+                //     children: [
+                //       Text(
+                //         'Already have an account ?',
+                //         style: GoogleFonts.poppins(
+                //           fontSize: 12,
+                //           fontWeight: FontWeight.w400,
+                //           color: Color(0xff6EBC31),
+                //         ),
+                //       ),
+                //       Expanded(
+                //         child: GestureDetector(
+                //           child: Text(
+                //             ' Connect us',
+                //             style: GoogleFonts.poppins(
+                //               fontSize: 12,
+                //               fontWeight: FontWeight.w400,
+                //               color: Color(0xff6EBC31),
+                //             ),
+                //           ),
+                //           onTap: (){
+                //             Navigator.push(
+                //               context,
+                //               MaterialPageRoute(builder: (context) =>  Login()),
+                //             );
+                //           },
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                // SizedBox(height: 10,)
               ],
             ),
           ),
