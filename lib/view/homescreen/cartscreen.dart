@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../common/app_colors.dart';
 import '../../common/textconstants.dart';
 import '../../controller/cartcontroller.dart';
+import '../../controller/razorctrlr.dart';
 import '../address.dart';
 import '../widgets/cartcontainer.dart';
 
-
 class CartScreen extends StatelessWidget {
   final CartController cartController = Get.find<CartController>();
+  final RazorpayController razorpayController = Get.put(RazorpayController());
 
   @override
   Widget build(BuildContext context) {
@@ -65,20 +65,22 @@ class CartScreen extends StatelessWidget {
                   ),
                   const Divider(),
 
+                  // Address Section
                   ListTile(
                     title: Text(cartController.address.value.isEmpty
                         ? "No address provided"
                         : cartController.address.value),
                     trailing: TextButton(
-                        child: Text(cartController.address.value.isEmpty ? "Add" : "Change"),
-                        onPressed: () {
-                          Get.to(() =>
-                              ChangeAddressPage(currentAddress: '',)
-                          );
-                        }
+                      child: Text(cartController.address.value.isEmpty ? "Add" : "Change"),
+                      onPressed: () {
+                        Get.to(() => ChangeAddressPage(
+                          currentAddress: cartController.address.value,
+                        ));
+                      },
                     ),
                   ),
                   const SizedBox(height: 10),
+
                   // Cart Summary Section
                   Container(
                     decoration: BoxDecoration(
@@ -89,6 +91,7 @@ class CartScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        // Points Section
                         Container(
                           decoration: BoxDecoration(
                             color: white,
@@ -103,8 +106,7 @@ class CartScreen extends StatelessWidget {
                               children: [
                                 InkWell(
                                   onTap: () {},
-                                  child: const Icon(Icons.eco_outlined,
-                                      size: 20, color: Colors.black),
+                                  child: const Icon(Icons.eco_outlined, size: 20, color: Colors.black),
                                 ),
                                 const SizedBox(width: 8),
                                 Expanded(
@@ -125,37 +127,31 @@ class CartScreen extends StatelessWidget {
                               buildOptionRow(
                                 'Add a sample',
                                 cartController.addSample.value,
-                                    (value) =>
-                                    cartController.toggleAddSample(value ?? false),
+                                    (value) => cartController.toggleAddSample(value ?? false),
                               ),
                               buildOptionRow(
                                 'Add display stand',
                                 cartController.addDisplayStand.value,
-                                    (value) =>
-                                    cartController.toggleAddDisplayStand(value ?? false),
+                                    (value) => cartController.toggleAddDisplayStand(value ?? false),
                               ),
                               buildOptionRow(
                                 'Add brochure',
                                 cartController.addBrochure.value,
-                                    (value) =>
-                                    cartController.toggleAddBrochure(value ?? false),
+                                    (value) => cartController.toggleAddBrochure(value ?? false),
                               ),
                               buildOptionRow(
                                 'Add leafcoin',
                                 cartController.addLeafcoin.value,
-                                    (value) =>
-                                    cartController.toggleAddLeafcoin(value ?? false),
+                                    (value) => cartController.toggleAddLeafcoin(value ?? false),
                               ),
                               buildRow(
                                 'Sub total',
-                                '₹${cartController.totalPrice.value
-                                    .toStringAsFixed(2)}',
+                                '₹${cartController.totalPrice.value.toStringAsFixed(2)}',
                               ),
                               const SizedBox(height: 8),
                               buildRow(
                                 'Discount price',
-                                '(₹${cartController.discountPrice
-                                    .toStringAsFixed(2)})',
+                                '(₹${cartController.discountPrice.toStringAsFixed(2)})',
                               ),
                               const SizedBox(height: 8),
                               buildRow('Delivery Charge', 'Free'),
@@ -164,35 +160,42 @@ class CartScreen extends StatelessWidget {
                               const SizedBox(height: 8),
                               buildRow(
                                 'Total',
-                                '₹${cartController.finalPrice.toStringAsFixed(
-                                    2)}',
+                                '₹${cartController.finalPrice.toStringAsFixed(2)}',
                                 isBold: true,
                               ),
                               const SizedBox(height: 16),
+
+                              // Checkout Button
                               Center(
                                 child: SizedBox(
                                   height: 44,
                                   width: 244,
-
                                   child: ElevatedButton(
                                     onPressed: () {
-                                      if (cartController.address.value.isEmpty) {
-                                        Get.snackbar("Error", "Please add an address before checkout.");
-                                      } else {
-                                        cartController.checkout(); // Perform checkout
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                          const SnackBar(
-                                            content: Text('Checkout complete!'),
-                                          ),
-                                        );
-                                      }
 
+                                      razorpayController.openCheckout(
+                                        amount: (cartController.finalPrice).toInt(), // Amount in paise
+                                        shopName: 'BixHinge',
+                                        description: 'Checkout Payment for Cart Items',
+                                        contact: razorpayController.contact.value, // Accessing contact value
+                                        email: razorpayController.email.value, // Accessing email value
+                                      );
+                                      // if (cartController.address.value.isEmpty) {
+                                      //   Get.snackbar("Error", "Please add an address before checkout.");
+                                      // } else {
+                                      //   razorpayController.openCheckout(
+                                      //     amount: (cartController.finalPrice).toInt(), // Amount in paise
+                                      //     shopName: 'BixHinge',
+                                      //     description: 'Checkout Payment for Cart Items',
+                                      //     contact: razorpayController.contact.value, // Accessing contact value
+                                      //     email: razorpayController.email.value, // Accessing email value
+                                      //   );
+                                      // }
                                     },
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: maintheme1,
                                       shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(
-                                            15.0),
+                                        borderRadius: BorderRadius.circular(15.0),
                                       ),
                                     ),
                                     child: Text(
@@ -205,7 +208,6 @@ class CartScreen extends StatelessWidget {
                             ],
                           ),
                         ),
-
                       ],
                     ),
                   ),
@@ -222,29 +224,17 @@ class CartScreen extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-            label,
-            style: NeededTextstyles.style13
-
-        ),
-        Text(
-            value,
-            style: NeededTextstyles.style13
-
-        ),
+        Text(label, style: NeededTextstyles.style13),
+        Text(value, style: NeededTextstyles.style13),
       ],
     );
   }
 
-  Widget buildOptionRow(String label, bool isChecked,
-      ValueChanged<bool?> onChanged) {
+  Widget buildOptionRow(String label, bool isChecked, ValueChanged<bool?> onChanged) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          label,
-          style: NeededTextstyles.style13, // Your text style
-        ),
+        Text(label, style: NeededTextstyles.style13),
         Checkbox(
           value: isChecked,
           onChanged: (value) {
@@ -252,23 +242,10 @@ class CartScreen extends StatelessWidget {
               onChanged(value); // Pass the non-null value
             }
           },
-          activeColor: Colors.white, // Customize active color
-          checkColor: Colors.black, // Customize check color
+          activeColor: Colors.white,
+          checkColor: Colors.black,
         ),
       ],
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

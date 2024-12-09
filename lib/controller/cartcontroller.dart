@@ -6,7 +6,7 @@ import '../model/productmodel.dart';
 
 class CartController extends GetxController {
   // API base URL
-  final String baseUrl = 'http://your-api-url.com'; // Replace with your API base URL
+  final String baseUrl = 'https://apib2b-production.up.railway.app/api'; // Replace with your API base URL
 
   // Observable list of cart items
   var cartItems = <Product>[].obs;

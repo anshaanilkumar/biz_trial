@@ -62,8 +62,14 @@ class NeededTextstyles {
     fontWeight: FontWeight.w700,
     color: white,
   );
+  static TextStyle style25 = TextStyle(
+    fontFamily: 'Poppins',
+    fontWeight: FontWeight.w400,
+    color: white,
+  );
 
   //   black
+
 
   static TextStyle style02 = TextStyle(
     fontFamily: 'Poppins',
