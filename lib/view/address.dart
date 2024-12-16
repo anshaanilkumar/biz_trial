@@ -1,47 +1,66 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../controller/usercontroller.dart';
+import '../../../common/app_colors.dart';
+import '../../../common/textconstants.dart';
+import '../controller/chandeaddress_ctlr.dart';
 
 
-class ChangeAddressPage extends StatefulWidget {
-  final String currentAddress;
-
-  const ChangeAddressPage({required this.currentAddress, Key? key}) : super(key: key);
-
-  @override
-  _ChangeAddressPageState createState() => _ChangeAddressPageState();
-}
-
-class _ChangeAddressPageState extends State<ChangeAddressPage> {
-  final TextEditingController _addressController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    _addressController.text = widget.currentAddress; // Set initial address
-  }
+class ChangeAddress extends StatelessWidget {
+  const ChangeAddress({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final changeAddressController = Get.put(ChangeAddressController());
+
     return Scaffold(
-      appBar: AppBar(title: Text("Change Address")),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: _addressController,
-              decoration: InputDecoration(labelText: "Address"),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 18, right: 18),
+            child: Form(
+              child: Column(
+                children: [
+                  Text("Add a new address", style: NeededTextstyles.style3),
+                  SizedBox(height: 30),
+                  // Single TextFormField
+                  TextFormField(
+                    decoration: InputDecoration(
+                        hintText: 'Shop Name',
+                        hintStyle: NeededTextstyles.style03),
+                    onChanged: (value) =>
+                    changeAddressController.address.value = value,
+                  ),
+                  SizedBox(height: 20),
+                  // Save address button
+                  SizedBox(
+                    height: 40,
+                    width: 350,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        changeAddressController
+                            .saveAddress(); // Save the address using GetX controller
+                        Navigator.pop(
+                            context); // Navigate back to the previous screen after saving
+                      },
+                      child:
+                      Text("Save Address", style: NeededTextstyles.style05),
+                      style:
+                      ElevatedButton.styleFrom(backgroundColor: Darktheme1),
+                    ),
+                  ),
+                ],
+              ),
             ),
-            ElevatedButton(
-              onPressed: () {
-                Get.find<UserController>().updateAddress(_addressController.text); // Update address
-                Get.back(); // Go back to the previous screen
-              },
-              child: Text("Save Address"),
-            ),
-          ],
+          ),
         ),
       ),
     );

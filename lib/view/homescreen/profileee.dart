@@ -1,4 +1,6 @@
+import 'package:biztrail/view/homescreen/ordersscreen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../authentication/signup.dart';
 import '../../common/app_colors.dart';
 import '../../common/textconstants.dart';
@@ -6,8 +8,8 @@ import '../../profile/deleteacc.dart';
 import '../../profile/editprofilee.dart';
 import '../../profile/help.dart';
 import '../../profile/notisettings.dart';
-import '../../profile/orders.dart';
-import '../../profile/privacy.dart';
+
+import '../../profile/security.dart';
 import '../../profile/terms.dart';
 
 class Item {
@@ -36,7 +38,7 @@ class Profile extends StatelessWidget {
     Item(
       name: "Orders",
       icon: Icons.shopping_cart_sharp,
-      destination: Order(),
+      destination: OrdersPage(),
     ),
     Item(
       name: "Notification Settings",
@@ -51,7 +53,7 @@ class Profile extends StatelessWidget {
     Item(
       name: "Privacy and Security",
       icon: Icons.security_outlined,
-      destination: Privacy(),
+      destination: PrivacyPolicyPage(),
     ),
     Item(
       name: "Help and Support Center",
@@ -73,7 +75,7 @@ class Profile extends StatelessWidget {
         backgroundColor: white,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Get.back();
           },
           icon: Icon(Icons.arrow_back, size: 24, color: black),
         ),
@@ -93,25 +95,22 @@ class Profile extends StatelessWidget {
                       child: Icon(Icons.maps_home_work_sharp, color: white, size: 30),
                     ),SizedBox(width: 20,),
                     Padding(
-                      padding: const EdgeInsets.only(right: 160),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            companyName,
-                            style: NeededTextstyles.styblackish,
-                          ),
-                        ],
+                      padding: const EdgeInsets.only(right: 150),
+                      child: Text(
+                        companyName,
+                        style: NeededTextstyles.styblackish,
                       ),
                     ),
-                    IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => EditProfile()),
-                        );
-                      },
-                      icon: Icon(Icons.edit_calendar_outlined, size: 20, color: black),
+                    Expanded(
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => EditProfile()),
+                          );
+                        },
+                        icon: Icon(Icons.edit_calendar_outlined, size: 20, color: black),
+                      ),
                     ),
                   ],
                 ),

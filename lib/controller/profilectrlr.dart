@@ -30,7 +30,7 @@ class ProfileController extends GetxController {
     }
 
     try {
-      final url = Uri.parse('https://apib2b-production.up.railway.app/api/business_users/${businessUser.value?.id}');
+      final url = Uri.parse('http://btobapi-production.up.railway.app/api/business_users/${businessUser.value?.id}');
       final response = await http.put(url, body: {
         'company_name': companyName,
         'contact_person': contactPerson,

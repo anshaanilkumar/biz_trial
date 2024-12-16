@@ -7,6 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../common/app_colors.dart';
 import '../../../model/usermodel.dart';
+import '../../common/textconstants.dart';
 import 'cartscreen.dart';
 import 'homescreen.dart';
 
@@ -66,7 +67,7 @@ class _FirstScreenState extends State<FirstScreen> {
         child: GNav(
           rippleColor: Colors.transparent,
           hoverColor: Colors.transparent,
-          haptic: true,
+          haptic: true,textStyle: NeededTextstyles.style15,
           tabBorderRadius: 30,
           tabActiveBorder: Border.all(color: Colors.transparent),
           tabBorder: Border.all(color: Colors.transparent),
@@ -85,20 +86,20 @@ class _FirstScreenState extends State<FirstScreen> {
               currentIndex = index;
             });
           },
-          tabs: const [
+          tabs: [
             GButton(
               icon: Icons.home,
               text: 'Home',
             ),
-            GButton(
+            const GButton(
               icon: Icons.search_outlined,
               text: 'Search',
             ),
-            GButton(
+            const GButton(
               icon: Icons.shopping_cart,
               text: 'Cart',
             ),
-            GButton(
+            const GButton(
               icon: Icons.person,
               text: 'Profile',
             ),

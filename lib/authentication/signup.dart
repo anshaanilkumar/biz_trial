@@ -322,16 +322,18 @@
 
 import 'package:biztrail/authentication/secondpage.dart';
 import 'package:biztrail/authentication/signin.dart';
+
 import 'package:biztrail/common/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';// Import the SignInPage
+
 import '../common/textconstants.dart';
-import 'kyc.dart';
-import 'login.dart'; // Import the KYC page or the next page
+
 
 class SignUpController extends GetxController {
   final companyName = ''.obs;
+
+  final id=''.obs;
   final contactPerson = ''.obs;
   final referralCode = ''.obs;
   final phone = ''.obs;
@@ -500,7 +502,7 @@ class SignUpPage extends StatelessWidget {
                           style: NeededTextstyles.style17,
                         ),
                         onTap: (){
-                          Get.to(() => LoginPage(companyName: Get.find<SignUpController>().companyName.value));
+                          Get.to(() => SignInPage());
                         },
                       ),
                     ),

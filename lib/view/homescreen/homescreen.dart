@@ -8,7 +8,9 @@ import '../../../common/app_colors.dart';
 import '../../../common/textconstants.dart';
 import '../../../controller/app_controller.dart';
 import '../../../controller/cartcontroller.dart';
+import '../../model/leaf/leafstate.dart';
 import '../widgets/catlist.dart';
+import 'notiii.dart';
 
 
 class HomeScreen extends StatelessWidget {
@@ -61,10 +63,10 @@ class HomeScreen extends StatelessWidget {
           IconButton(
 
               onPressed: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => SuperCoinStatement()),
-                // );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SuperCoinStatement()),
+                );
               },
               icon: Badge(
                 backgroundColor:  Darktheme1,
@@ -74,10 +76,10 @@ class HomeScreen extends StatelessWidget {
           ),
           IconButton(
               onPressed: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => NotificationsPage()),
-                // );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => NotificationsPage()),
+                );
               },
               icon: Badge(
                 backgroundColor:  Darktheme1,
@@ -251,25 +253,3 @@ class HomeScreen extends StatelessWidget {
 }
 
 
-//
-// title: Column(
-// children: [
-// Text(
-// "Welcome", // Static welcome text
-// style: TextStyle(
-// fontFamily: 'Poppins',
-// fontWeight: FontWeight.bold,
-// fontSize: 18,
-// color: Colors.black,
-// ),
-// ),
-// Text(
-// companyName, // Dynamic shop name
-// style: TextStyle(
-// fontFamily: 'Poppins',
-// fontSize: 14,
-// color: Colors.grey[600],
-// ),
-// ),
-// ],
-// ),

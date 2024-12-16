@@ -21,7 +21,10 @@ class CategoryProductPage extends StatelessWidget {
         .toList();
 
     return Scaffold(
+      backgroundColor: white,
       appBar: AppBar(
+        surfaceTintColor: Colors.transparent,
+        backgroundColor: white,
         title: Text('${category.name} Products',
           style: NeededTextstyles.commonhead,),
       ),

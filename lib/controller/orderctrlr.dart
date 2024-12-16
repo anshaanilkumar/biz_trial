@@ -1,11 +1,10 @@
+import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class OrderController extends GetxController {
-  // Reactive variables
   var isLoading = true.obs;
-  var user = Rxn<User>();
+  var order = Rxn<Order>();
 
   @override
   void onInit() {
@@ -13,19 +12,16 @@ class OrderController extends GetxController {
     fetchOrderDetails();
   }
 
-  // Fetch order details from API
   Future<void> fetchOrderDetails() async {
     try {
-      // Simulate API call delay
       final response = await http.get(
-        Uri.parse('https://apib2b-production.up.railway.app/api/orderDetails'),
+        Uri.parse('https://btobapi-production.up.railway.app/api/orders/'),
       );
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-
-        if (data != null && data['shippingName'] != null) {
-          user.value = User.fromJson(data);
+        if (data != null && data['id'] != null) {
+          order.value = Order.fromJson(data);
         } else {
           throw Exception('Invalid data structure');
         }
@@ -40,33 +36,62 @@ class OrderController extends GetxController {
   }
 }
 
-// User model
-class User {
-  final String shippingName;
-  final String recipientName;
-  final String fromAddress;
-  final String toAddress;
-  final int quantity;
-  final double amount;
+// Order Model
+class Order {
+  final int id;
+  final int businessUserId;
+  final String businessUserName;
+  final String orderDate;
+  final double totalPrice;
+  final String billingAddress;
+  final String status;
+  final String orderType;
+  final List<OrderProduct> orderProducts;
 
-  User({
-    required this.shippingName,
-    required this.recipientName,
-    required this.fromAddress,
-    required this.toAddress,
-    required this.quantity,
-    required this.amount,
+  Order({
+    required this.id,
+    required this.businessUserId,
+    required this.businessUserName,
+    required this.orderDate,
+    required this.totalPrice,
+    required this.billingAddress,
+    required this.status,
+    required this.orderType,
+    required this.orderProducts,
   });
 
-  // Convert JSON to User object
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
-      shippingName: json['shippingName'] ?? '',
-      recipientName: json['recipientName'] ?? '',
-      fromAddress: json['fromAddress'] ?? '',
-      toAddress: json['toAddress'] ?? '',
-      quantity: json['quantity'] ?? 0,
-      amount: (json['amount'] ?? 0).toDouble(),
+  factory Order.fromJson(Map<String, dynamic> json) {
+    return Order(
+      id: int.tryParse(json['id'].toString()) ?? 0,
+      businessUserId: int.tryParse(json['business_user'].toString()) ?? 0,
+      businessUserName: json['business_user_name'] ?? '',
+      orderDate: json['order_date'] ?? '',
+      totalPrice: double.tryParse(json['total_price'].toString()) ?? 0.0,
+      billingAddress: json['billing_address'] ?? '',
+      status: json['status'] ?? '',
+      orderType: json['order_type'] ?? '',
+      orderProducts: (json['order_products'] as List<dynamic>?)
+          ?.map((item) => OrderProduct.fromJson(item))
+          .toList() ??
+          [],
+    );
+  }
+}
+
+// Order Product Model
+class OrderProduct {
+  final String productName; // Example field, adjust based on your API
+  final int productId;
+
+  OrderProduct({
+    required this.productName,
+    required this.productId,
+  });
+
+  factory OrderProduct.fromJson(Map<String, dynamic> json) {
+    return OrderProduct(
+      productName: json['product_name'] ?? '',
+      productId: int.tryParse(json['product_id'].toString()) ?? 0,
     );
   }
 }

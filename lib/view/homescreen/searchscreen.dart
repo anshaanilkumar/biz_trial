@@ -1,3 +1,4 @@
+import 'package:biztrail/common/textconstants.dart';
 import 'package:biztrail/view/homescreen/productdetail.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,7 +21,7 @@ class SearchScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: const Text('Search Products'),
+        title: Text('Search Products',style: NeededTextstyles.commonhead,),centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -42,7 +43,7 @@ class SearchScreen extends StatelessWidget {
                 child: TextField(
                   decoration: InputDecoration(
                     hintText: 'Search for products...',
-                    prefixIcon: const Icon(Icons.search),
+                    prefixIcon: const Icon(Icons.search),hintStyle:NeededTextstyles.blc15,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),

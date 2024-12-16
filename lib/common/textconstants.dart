@@ -158,6 +158,12 @@ class NeededTextstyles {
     fontWeight: FontWeight.w400,
     color: Colors.black,
   );
+  static TextStyle blcl5 = TextStyle(
+    fontFamily: 'Poppins',
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+
+  );
   static TextStyle style50 = TextStyle(
     fontFamily: 'Poppins',
     fontSize: 16,
@@ -289,6 +295,12 @@ class NeededTextstyles {
     fontFamily: 'Poppins',
     fontSize: 18,
     fontWeight: FontWeight.w400,
+    color: Darktheme1,
+  );
+  static TextStyle splash= TextStyle(
+    fontFamily: 'Poppins',
+    fontSize: 30,
+    fontWeight: FontWeight.bold,
     color: Darktheme1,
   );
 

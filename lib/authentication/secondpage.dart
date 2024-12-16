@@ -19,20 +19,21 @@ class SecondPageController extends GetxController {
   void pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
 
-    if (result != null) {
-      uploadedFile = File(result.files.single.path!);
+    if (result != null && result.files.single.path != null) {
+      uploadedFile = File(result.files.single.path!); // Safely access file path
       isFileUploaded.value = true;
       update();
     } else {
-      print("No file selected");
+      Get.snackbar("No File", "No file selected or invalid file path.");
     }
   }
 
   Future<void> submitForm() async {
     isVerifyLoading.value = true;
     try {
-      final url = Uri.parse('https://apib2b-production.up.railway.app/api/business_users/');
+      final url = Uri.parse('https://btobapi-production.up.railway.app/api/business_users/');
       final request = http.MultipartRequest('POST', url)
+        ..fields['id'] = Get.find<SignUpController>().id.value
         ..fields['company_name'] = Get.find<SignUpController>().companyName.value
         ..fields['contact_person'] = Get.find<SignUpController>().contactPerson.value
         ..fields['referral_code'] = Get.find<SignUpController>().referralCode.value
@@ -43,10 +44,13 @@ class SecondPageController extends GetxController {
       }
 
       final response = await request.send();
+      final responseBody = await response.stream.bytesToString();
+
       if (response.statusCode == 201) {
         Get.snackbar("Success", "Sign up successful!");
         Get.offAll(() => FirstScreen(companyName: Get.find<SignUpController>().companyName.value));
       } else {
+        print("Error: $responseBody");
         Get.snackbar("Error", "Failed to sign up: ${response.statusCode}");
       }
     } catch (e) {
@@ -59,7 +63,7 @@ class SecondPageController extends GetxController {
   Future<void> skipForm() async {
     isSkipLoading.value = true;
     try {
-      final url = Uri.parse('https://apib2b-production.up.railway.app/api/business_users/');
+      final url = Uri.parse('https://btobapi-production.up.railway.app/api/business_users/');
       final response = await http.post(url, body: {
         'company_name': Get.find<SignUpController>().companyName.value,
         'contact_person': Get.find<SignUpController>().contactPerson.value,
@@ -71,6 +75,7 @@ class SecondPageController extends GetxController {
         Get.snackbar("Success", "Skipped successfully!");
         Get.offAll(() => FirstScreen(companyName: Get.find<SignUpController>().companyName.value));
       } else {
+        print("Error: ${response.body}");
         Get.snackbar("Error", "Failed to skip: ${response.statusCode}");
       }
     } catch (e) {
@@ -109,7 +114,7 @@ class SecondPage extends StatelessWidget {
             children: [
               Text(
                 "For completion of registration,\nplease upload ANY ONE of the following\ndocument",
-                style: NeededTextstyles.style50
+                style: NeededTextstyles.style50,
               ),
               SizedBox(height: 10),
               Row(
@@ -118,14 +123,14 @@ class SecondPage extends StatelessWidget {
                   SizedBox(width: 8),
                   Text(
                     "Why this is needed?",
-                    style: NeededTextstyles.style56
+                    style: NeededTextstyles.style56,
                   ),
                 ],
               ),
               SizedBox(height: 50),
-              _buildownershipButton(),
+              _buildOwnershipButton(),
               SizedBox(height: 16),
-              _buildgstButton(),
+              _buildGstButton(),
               SizedBox(height: 50),
               Row(
                 children: [
@@ -139,7 +144,7 @@ class SecondPage extends StatelessWidget {
                   Expanded(
                     child: Text(
                       "I agree with giving above documents",
-                      style: NeededTextstyles.style56
+                      style: NeededTextstyles.style56,
                     ),
                   ),
                 ],
@@ -147,8 +152,8 @@ class SecondPage extends StatelessWidget {
               SizedBox(height: 5),
               Obx(
                     () => Center(
-                      child: Column(
-                        children: [
+                  child: Column(
+                    children: [
                       Container(
                         height: 40,
                         width: 200,
@@ -164,7 +169,7 @@ class SecondPage extends StatelessWidget {
                               ? CircularProgressIndicator(color: white)
                               : Text(
                             "Skip",
-                            style: NeededTextstyles.style57
+                            style: NeededTextstyles.style57,
                           ),
                         ),
                       ),
@@ -191,13 +196,13 @@ class SecondPage extends StatelessWidget {
                               ? CircularProgressIndicator(color: white)
                               : Text(
                             "Verify",
-                            style: NeededTextstyles.style57
+                            style: NeededTextstyles.style57,
                           ),
                         ),
                       ),
-                                        ],
-                                      ),
-                    ),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
@@ -206,7 +211,7 @@ class SecondPage extends StatelessWidget {
     );
   }
 
-  Widget _buildownershipButton() {
+  Widget _buildOwnershipButton() {
     return GestureDetector(
       onTap: controller.pickFile,
       child: Container(
@@ -228,7 +233,7 @@ class SecondPage extends StatelessWidget {
     );
   }
 
-  Widget _buildgstButton() {
+  Widget _buildGstButton() {
     return GestureDetector(
       onTap: controller.pickFile,
       child: Container(
