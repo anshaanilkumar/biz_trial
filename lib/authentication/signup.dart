@@ -324,6 +324,7 @@ import 'package:biztrail/authentication/secondpage.dart';
 import 'package:biztrail/authentication/signin.dart';
 
 import 'package:biztrail/common/app_colors.dart';
+import 'package:biztrail/model/usermodel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -333,16 +334,25 @@ import 'log.dart';
 
 class SignUpController extends GetxController {
   final companyName = ''.obs;
-
-  final id=''.obs;
   final contactPerson = ''.obs;
-  final referralCode = ''.obs;
   final phone = ''.obs;
-  // final address = ''.obs;
+  final referralCode = ''.obs;
   var isChecked = false.obs;
 
+  // Method to save user data into the model
+  BusinessUser saveUserData(String id) {
+    return BusinessUser(
+
+      companyName: companyName.value,
+      contactPerson: contactPerson.value,
+      phone: phone.value, uploadedFile: '',
+
+    );
+  }
+
+  // Method to validate inputs
   bool validateInputs() {
-    if (companyName.isEmpty || contactPerson.isEmpty || phone.isEmpty ) {
+    if (companyName.isEmpty || contactPerson.isEmpty || phone.isEmpty) {
       Get.snackbar("Error", "All fields except referral are mandatory.");
       return false;
     }

@@ -52,12 +52,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart'; // Unused, you can remove this if not used
 
-import 'authentication/login.dart';
 import 'authentication/signup.dart';
 import 'controller/usercontroller.dart';
 import 'model/leaf/leafpro.dart';
 import 'model/logmodel.dart';
-import 'view/homescreen/firstscreen.dart';
 import 'controller/cartcontroller.dart';
 import 'controller/srchcontrlr.dart';
 

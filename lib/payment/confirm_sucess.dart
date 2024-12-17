@@ -869,7 +869,7 @@ class OrderConfirmationScreen extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   Get.to(() => FirstScreen(
-                    companyName: signupController.companyName.value,
+                    companyName: userModel.companyName.toString(),
                   ));
                 },
                 style: ElevatedButton.styleFrom(

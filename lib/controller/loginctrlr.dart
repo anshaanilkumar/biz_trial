@@ -77,9 +77,7 @@ class LoginController extends GetxController {
         Get.put(userModel!); // Store globally for access in other controllers
 
         // Navigate to the first screen
-        Get.offAll(() => FirstScreen(
-          companyName: Get.find<SignUpController>().companyName.value,
-        ));
+        Get.offAll(() => FirstScreen(companyName: userModel!.companyName.toString()));
       } else if (response.statusCode == 404) {
         Get.snackbar('Error', 'User not found');
       } else {

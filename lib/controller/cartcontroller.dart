@@ -162,8 +162,8 @@ class CartController extends GetxController {
       );
 
       if (response.statusCode == 200) {
-        clearCart();
         Get.snackbar("Success", "Your order has been placed successfully!");
+        clearCart();
       } else {
         Get.snackbar(
             "Error", "Failed to place the order. ${response.statusCode}");
@@ -279,6 +279,7 @@ class CartController extends GetxController {
 
     final loginController = Get.find<LoginController>();
     final userModel = loginController.userModel;
+
 
     if (userModel == null) {
       Get.snackbar('Error', 'User not logged in. Please log in again.');

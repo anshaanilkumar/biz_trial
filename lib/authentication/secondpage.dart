@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:biztrail/authentication/signin.dart';
 import 'package:biztrail/authentication/signup.dart';
 import 'package:biztrail/view/homescreen/firstscreen.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,7 @@ class SecondPageController extends GetxController {
     try {
       final url = Uri.parse('https://btobapi-production.up.railway.app/api/business_users/');
       final request = http.MultipartRequest('POST', url)
-        ..fields['id'] = Get.find<SignUpController>().id.value
+
         ..fields['company_name'] = Get.find<SignUpController>().companyName.value
         ..fields['contact_person'] = Get.find<SignUpController>().contactPerson.value
         ..fields['referral_code'] = Get.find<SignUpController>().referralCode.value
@@ -73,7 +74,7 @@ class SecondPageController extends GetxController {
 
       if (response.statusCode == 201) {
         Get.snackbar("Success", "Skipped successfully!");
-        Get.offAll(() => FirstScreen(companyName: Get.find<SignUpController>().companyName.value));
+        Get.offAll(() =>ConfirmScreen());
       } else {
         print("Error: ${response.body}");
         Get.snackbar("Error", "Failed to skip: ${response.statusCode}");
