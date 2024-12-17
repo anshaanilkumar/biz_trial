@@ -328,6 +328,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../common/textconstants.dart';
+import 'log.dart';
 
 
 class SignUpController extends GetxController {
@@ -502,7 +503,7 @@ class SignUpPage extends StatelessWidget {
                           style: NeededTextstyles.style17,
                         ),
                         onTap: (){
-                          Get.to(() => SignInPage());
+                          Get.to(() => LoginPage());
                         },
                       ),
                     ),

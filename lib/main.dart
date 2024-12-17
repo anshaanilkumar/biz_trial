@@ -45,6 +45,8 @@
 // }
 // ignore_for_file: use_key_in_widget_constructors
 
+import 'package:biztrail/controller/loginctrlr.dart';
+import 'package:biztrail/model/usermodel.dart';
 import 'package:biztrail/view/homescreen/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -54,6 +56,7 @@ import 'authentication/login.dart';
 import 'authentication/signup.dart';
 import 'controller/usercontroller.dart';
 import 'model/leaf/leafpro.dart';
+import 'model/logmodel.dart';
 import 'view/homescreen/firstscreen.dart';
 import 'controller/cartcontroller.dart';
 import 'controller/srchcontrlr.dart';
@@ -63,7 +66,9 @@ void main() {
   Get.lazyPut<SrchController>(() => SrchController());
   Get.lazyPut<CartController>(() => CartController());
   Get.put(SignUpController());
-  Get.put(UserController());
+  Get.put(UserModel());
+ Get.put(UserController());
+  Get.put(LoginController());
 
   runApp(
     GetMaterialApp(

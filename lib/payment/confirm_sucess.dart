@@ -668,6 +668,7 @@ import 'package:uuid/uuid.dart';
 import '../common/app_colors.dart';
 import '../controller/cartcontroller.dart';
 import '../authentication/signup.dart';
+import '../controller/loginctrlr.dart';
 import '../view/homescreen/firstscreen.dart';
 
 class User {
@@ -693,10 +694,12 @@ class OrderConfirmationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Initialize user object with cart data
+
+    final loginController = Get.find<LoginController>();
+    final userModel = loginController.userModel;
     final user = User(
       shippingName: "Leafbazar Enterprises Pvt. Ltd",
-      recipientName: "Akshay Company",
+      recipientName: userModel!.companyName.toString(),
       fromAddress: "Leafbazar Enterprises Pvt. Ltd\nPuthanangadi ROAD,\nMEKKAD P.O",
       toAddress: "Nil",
       amount: double.parse(cartController.totalPrice.value.toStringAsFixed(2)),
@@ -708,7 +711,9 @@ class OrderConfirmationScreen extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Get.back();
+            Get.to(() => FirstScreen(
+              companyName: signupController.companyName.value,
+            ));
           },
         ),
         elevation: 0,

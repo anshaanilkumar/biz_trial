@@ -262,6 +262,7 @@ import '../../../common/app_colors.dart';
 import '../../../common/textconstants.dart';
 import '../../../controller/cartcontroller.dart';
 import '../../model/leaf/leafpro.dart';
+import '../../model/logmodel.dart';
 import '../address.dart';
 import '../widgets/cartcontainer.dart';
 
@@ -432,19 +433,35 @@ class CartScreen extends StatelessWidget {
                                   child: ElevatedButton(
                                     onPressed: () {
                                       // Check if cart is empty
+                                      // if (cartController.cartItems.isNotEmpty) {
+                                      //   final product = cartController.cartItems
+                                      //       .first;
+                                      //   final userModel = Get.find<UserModel>(); // Pick first product
+                                      //   cartController.placeOrder(product ,userModel);
+                                      // } else {
+                                      //   Get.snackbar(
+                                      //       "Error", "Your cart is empty.");
+                                      // }
+                                      // Get.find<LeafCoinController>().addCoin(
+                                      //   "New Coins Added", // Title for the transaction
+                                      //   "Added on 16 Dec 2024", // Subtitle
+                                      //   "+10", // Amount
+                                      // );
                                       if (cartController.cartItems.isNotEmpty) {
-                                        final product = cartController.cartItems
-                                            .first; // Pick first product
-                                        cartController.placeOrder(product);
+                                        final product = cartController.cartItems.first; // Get the UserModel instance
+
+                                        // Pass both the product and the userModel to placeOrder
+                                        cartController.placeOrder(product,);
+
+                                        Get.find<LeafCoinController>().addCoin(
+                                          "New Coins Added", // Title for the transaction
+                                          "Added on 16 Dec 2024", // Subtitle
+                                          "+10", // Amount
+                                        );
                                       } else {
-                                        Get.snackbar(
-                                            "Error", "Your cart is empty.");
+                                        Get.snackbar("Error", "Your cart is empty.");
                                       }
-                                      Get.find<LeafCoinController>().addCoin(
-                                        "New Coins Added", // Title for the transaction
-                                        "Added on 16 Dec 2024", // Subtitle
-                                        "+10", // Amount
-                                      );
+
                                     },
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: maintheme1,

@@ -93,7 +93,7 @@ class Profile extends StatelessWidget {
                       radius: 20,
                       backgroundColor: black,
                       child: Icon(Icons.maps_home_work_sharp, color: white, size: 30),
-                    ),SizedBox(width: 20,),
+                    ),SizedBox(width: 11,),
                     Padding(
                       padding: const EdgeInsets.only(right: 150),
                       child: Text(
