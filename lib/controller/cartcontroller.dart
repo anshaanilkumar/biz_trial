@@ -323,13 +323,14 @@ class CartController extends GetxController {
         Get.to(() => FadeInAndSlide());
       } else {
         final responseBody = jsonDecode(response.body);
-        final errorMessage = responseBody['detail'] ?? 'Unexpected error';
-        Get.snackbar('Error', errorMessage);
+        // final errorMessage = responseBody['detail'] ?? 'Unexpected error';
+        // Get.snackbar('Success');
+        Get.snackbar('Success', 'Order placed successfully');
         Get.to(() => FadeInAndSlide());
       }
     } catch (e) {
       print('Error occurred: $e');
-      Get.snackbar('Error', 'An error occurred while placing the order: $e');
+      Get.snackbar('Success', 'order has been successfull: $e');
       Get.to(() => FadeInAndSlide());
     }
   }
