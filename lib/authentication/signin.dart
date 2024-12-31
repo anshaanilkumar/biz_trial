@@ -64,6 +64,7 @@ class ConfirmScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
+                    keyboardType: TextInputType.phone,
                   ),
                 ),
               ),
