@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:biztrail/authentication/signin.dart';
+import 'package:biztrail/authentication/confirmphone.dart';
 import 'package:biztrail/authentication/signup.dart';
 import 'package:biztrail/view/homescreen/firstscreen.dart';
 import 'package:flutter/material.dart';

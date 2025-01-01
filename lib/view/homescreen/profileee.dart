@@ -1,6 +1,7 @@
 import 'package:biztrail/view/homescreen/ordersscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../authentication/log.dart';
 import '../../authentication/signup.dart';
 import '../../common/app_colors.dart';
 import '../../common/textconstants.dart';
@@ -153,7 +154,7 @@ class Profile extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => SignUpPage()),
+                      MaterialPageRoute(builder: (context) => LoginPage()),
                     );
                   },
                   style: ElevatedButton.styleFrom(

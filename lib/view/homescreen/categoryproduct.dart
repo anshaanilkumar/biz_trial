@@ -64,7 +64,7 @@ class CategoryProductPage extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
                 trailing: Text(
-                  '\$${product.price?.toStringAsFixed(2)}',
+                  '\₹${product.price?.toStringAsFixed(2)}',
                   style: NeededTextstyles.style21,
                 ),
               ),

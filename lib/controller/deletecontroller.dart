@@ -1,3 +1,4 @@
+import 'package:biztrail/authentication/signup.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -33,7 +34,7 @@ class DeleteAccountController extends GetxController {
 
       if (response.statusCode == 200) {
         Get.snackbar('Success', 'Account deleted successfully!');
-        Get.offAllNamed('/login');
+        Get.offAll(() => SignUpPage());
       } else if (response.statusCode == 301 || response.statusCode == 302) {
         // Handle the redirection by getting the new URL from the "Location" header
         String redirectUrl = response.headers['location'] ?? '';
@@ -42,7 +43,7 @@ class DeleteAccountController extends GetxController {
           final redirectResponse = await http.delete(Uri.parse(redirectUrl));
           if (redirectResponse.statusCode == 200) {
             Get.snackbar('Success', 'Account deleted successfully!');
-            Get.offAllNamed('/login');
+            Get.offAll(() => SignUpPage());
           } else {
             errorMessage.value = 'Account deleted successfully!';
             Get.snackbar('Error', errorMessage.value);
@@ -57,7 +58,7 @@ class DeleteAccountController extends GetxController {
       } else {
         errorMessage.value = 'Account deleted successfully! Status: ${response.statusCode}, Body: ${response.body}';
         Get.snackbar('Success', errorMessage.value);
-        Get.offAllNamed('/login');
+        Get.offAll(() => SignUpPage());
       }
     } catch (e) {
       errorMessage.value = 'An error occurred: $e';

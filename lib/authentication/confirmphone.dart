@@ -34,17 +34,16 @@ class ConfirmScreen extends StatelessWidget {
                   style:NeededTextstyles.style18,
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: Text(
+                  'Input Phonenumber that ',
+                  style:NeededTextstyles.style03,
+                ),
+              ),
 
               SizedBox(height: 50),
-              // TextField(
-              //   controller: loginController.phoneController,
-              //   decoration: InputDecoration(
-              //   hintText: "phone number",
-              //   prefixIcon: Icon(Icons.phone),
-              //   border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-              // ),
-              //   keyboardType: TextInputType.phone,
-              // ),
+
 
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -90,7 +89,7 @@ class ConfirmScreen extends StatelessWidget {
                     ),
                     style: ElevatedButton.styleFrom(
                         elevation: 6,
-                        backgroundColor: Color(0xff6EBC31),
+                        backgroundColor: maintheme1,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.0),
                         )),
